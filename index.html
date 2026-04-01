@@ -1,0 +1,71 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kaalix Play – Tic Tac Toe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="page">
+        <header class="header">
+            <h1>Kaalix Play</h1>
+            <p>Simple tic tac toe you can play in the browser – no login, no setup.</p>
+        </header>
+
+        <section class="game-shell">
+            <div class="game-panel">
+                <div class="status-row">
+                    <span id="statusText" class="status-text">Player X starts</span>
+                    <span class="mode-pill" id="modePill">2 Players</span>
+                </div>
+
+                <div class="board" id="board">
+                    <button class="cell" data-index="0"></button>
+                    <button class="cell" data-index="1"></button>
+                    <button class="cell" data-index="2"></button>
+                    <button class="cell" data-index="3"></button>
+                    <button class="cell" data-index="4"></button>
+                    <button class="cell" data-index="5"></button>
+                    <button class="cell" data-index="6"></button>
+                    <button class="cell" data-index="7"></button>
+                    <button class="cell" data-index="8"></button>
+                </div>
+
+                <div class="controls">
+                    <button id="restartBtn" class="btn primary">Restart game</button>
+                    <button id="modeBtn" class="btn outline">Play vs Kaalix</button>
+                </div>
+            </div>
+
+            <aside class="side-panel">
+                <div class="score-card">
+                    <h2>Score</h2>
+                    <div class="score-row">
+                        <span>X</span>
+                        <span id="scoreX">0</span>
+                    </div>
+                    <div class="score-row">
+                        <span>O</span>
+                        <span id="scoreO">0</span>
+                    </div>
+                    <div class="score-row">
+                        <span>Draw</span>
+                        <span id="scoreDraw">0</span>
+                    </div>
+                </div>
+                <p class="note">
+                    Tip: in vs Kaalix mode, the computer plays as O and chooses a safe move, but still leaves room for you to win.
+                </p>
+            </aside>
+        </section>
+
+        <footer class="footer">
+            <p>Kaalix Play is a tic tac toe web application built with HTML, CSS and JavaScript.</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
