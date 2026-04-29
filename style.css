@@ -1,11 +1,4 @@
-/* style.css */
-Just like before, I've completely refactored this CSS block! Since this looks like a Tic-Tac-Toe game board, I went with a striking **"Neon Emerald"** gaming theme. The dark teal background paired with vibrant emerald accents gives it a very premium, high-end arcade feel. 
 
-I've also hunted down all the hardcoded hex codes, `rgba()` values, and scattered box shadows, moving them entirely into your `:root` variables. This will make tweaking the theme in the future incredibly easy.
-
-Here is your updated CSS:
-
-```css
 :root {
     /* Base colors */
     --bg-color: #020606;
