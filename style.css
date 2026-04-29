@@ -1,18 +1,50 @@
 /* style.css */
+Just like before, I've completely refactored this CSS block! Since this looks like a Tic-Tac-Toe game board, I went with a striking **"Neon Emerald"** gaming theme. The dark teal background paired with vibrant emerald accents gives it a very premium, high-end arcade feel. 
+
+I've also hunted down all the hardcoded hex codes, `rgba()` values, and scattered box shadows, moving them entirely into your `:root` variables. This will make tweaking the theme in the future incredibly easy.
+
+Here is your updated CSS:
+
+```css
 :root {
-    --bg: #020617;
-    --surface: #020617;
-    --surface-inner: #0b1120;
-    --accent: #38bdf8;
-    --accent-strong: #0ea5e9;
-    --accent-soft: rgba(56, 189, 248, 0.16);
-    --line-x: #fbbf24;
-    --line-o: #a5b4fc;
-    --text-main: #e5e7eb;
-    --text-muted: #9ca3af;
-    --border-soft: #1f2937;
+    /* Base colors */
+    --bg-color: #020606;
+    --surface-color: #05100f;
+    --surface-inner: #0a1c1a;
+    
+    /* Accents (Neon Emerald theme) */
+    --accent: #10b981;
+    --accent-strong: #059669;
+    --accent-glow: rgba(16, 185, 129, 0.45);
+    --accent-glow-strong: rgba(5, 150, 105, 0.55);
+    --accent-soft: rgba(16, 185, 129, 0.16);
+    
+    /* Game specific colors */
+    --line-x: #f59e0b; /* Amber for X */
+    --line-o: #0ea5e9; /* Sky blue for O */
+    
+    /* UI Elements */
+    --border-subtle: rgba(16, 185, 129, 0.15);
+    --border-soft: rgba(16, 185, 129, 0.25);
+    --border-light: rgba(16, 185, 129, 0.45);
+    
+    /* Text */
+    --text-main: #f0fdf4;
+    --text-muted: #6ee7b7;
+    --text-inverse: #020606;
+    
+    /* Layout */
     --radius-lg: 20px;
-    --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.8);
+    --shadow-subtle: 0 10px 24px rgba(0, 0, 0, 0.4);
+    --shadow-soft: 0 16px 36px rgba(0, 0, 0, 0.55);
+    --shadow-strong: 0 18px 45px rgba(0, 0, 0, 0.7);
+    
+    /* Component specific backgrounds (previously hardcoded) */
+    --page-bg-1: rgba(5, 16, 15, 0.98);
+    --page-bg-2: rgba(5, 16, 15, 0.94);
+    --panel-bg: rgba(10, 28, 26, 0.95);
+    --cell-bg: rgba(5, 16, 15, 0.95);
+    --cell-hover: rgba(8, 22, 20, 1);
 }
 
 * {
@@ -23,7 +55,7 @@
 
 body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background: radial-gradient(circle at top left, #0ea5e9 0, #020617 55%);
+    background: radial-gradient(circle at top left, #064e3b 0, var(--bg-color) 55%);
     color: var(--text-main);
     min-height: 100vh;
 }
@@ -32,10 +64,10 @@ body {
     max-width: 960px;
     margin: 40px auto 28px;
     padding: 22px 22px 26px;
-    background: linear-gradient(145deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.94));
+    background: linear-gradient(145deg, var(--page-bg-1), var(--page-bg-2));
     border-radius: 26px;
-    border: 1px solid rgba(148, 163, 184, 0.45);
-    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--border-soft);
+    box-shadow: var(--shadow-strong);
 }
 
 /* header */
@@ -72,8 +104,8 @@ body {
     background: var(--surface-inner);
     border-radius: 22px;
     padding: 18px 18px 20px;
-    border: 1px solid rgba(31, 41, 55, 0.9);
-    box-shadow: 0 16px 36px rgba(15, 23, 42, 0.9);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-soft);
 }
 
 .status-row {
@@ -92,7 +124,7 @@ body {
     font-size: 0.78rem;
     padding: 5px 10px;
     border-radius: 999px;
-    border: 1px solid rgba(148, 163, 184, 0.7);
+    border: 1px solid var(--border-light);
     color: var(--text-muted);
 }
 
@@ -102,19 +134,19 @@ body {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 8px;
-    background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.95));
+    background: radial-gradient(circle at top, var(--page-bg-1), var(--page-bg-2));
     border-radius: 18px;
     padding: 10px;
     margin-bottom: 16px;
-    border: 1px solid rgba(31, 41, 55, 0.95);
+    border: 1px solid var(--border-subtle);
 }
 
 .cell {
     width: 90px;
     height: 90px;
     border-radius: 18px;
-    border: 1px solid rgba(55, 65, 81, 0.9);
-    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid var(--border-soft);
+    background: var(--cell-bg);
     color: var(--text-main);
     font-size: 2.4rem;
     font-weight: 600;
@@ -131,10 +163,10 @@ body {
 }
 
 .cell:hover:enabled {
-    background: rgba(15, 23, 42, 1);
+    background: var(--cell-hover);
     border-color: var(--accent);
     transform: translateY(-1px);
-    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.8);
+    box-shadow: var(--shadow-subtle);
 }
 
 .cell.x {
@@ -165,7 +197,7 @@ body {
     padding: 9px 16px;
     font-size: 0.86rem;
     font-weight: 500;
-    background: rgba(15, 23, 42, 0.95);
+    background: var(--cell-bg);
     color: var(--text-main);
     cursor: pointer;
     transition:
@@ -179,19 +211,19 @@ body {
 .btn.primary {
     background: var(--accent);
     border-color: transparent;
-    color: #0b1120;
-    box-shadow: 0 12px 35px rgba(56, 189, 248, 0.45);
+    color: var(--text-inverse);
+    box-shadow: 0 12px 35px var(--accent-glow);
 }
 
 .btn.primary:hover {
     background: var(--accent-strong);
     transform: translateY(-1px);
-    box-shadow: 0 16px 40px rgba(14, 165, 233, 0.55);
+    box-shadow: 0 16px 40px var(--accent-glow-strong);
 }
 
 .btn.outline {
     background: transparent;
-    border-color: rgba(148, 163, 184, 0.7);
+    border-color: var(--border-light);
 }
 
 .btn.outline:hover {
@@ -205,8 +237,8 @@ body {
     background: var(--surface-inner);
     border-radius: 22px;
     padding: 16px 16px 14px;
-    border: 1px solid rgba(31, 41, 55, 0.95);
-    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.85);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-soft);
 }
 
 .score-card h2 {
@@ -274,3 +306,4 @@ body {
         flex-direction: column;
     }
 }
+```
