@@ -1,43 +1,44 @@
 
+
 :root {
-    /* Base colors (Deep Synthwave Night) */
-    --bg-color: #0b0914;
-    --surface-color: #120e24;
-    --surface-inner: #191433;
+    /* Base colors (Clean Green & White) */
+    --bg-color: #f0f4f2;
+    --surface-color: #ffffff;
+    --surface-inner: #f8faf9;
     
-    /* Accents (Neon Fuchsia) */
-    --accent: #d946ef;
-    --accent-strong: #c026d3;
-    --accent-glow: rgba(217, 70, 239, 0.45);
-    --accent-glow-strong: rgba(192, 38, 211, 0.55);
-    --accent-soft: rgba(217, 70, 239, 0.16);
+    /* Accents (Fresh Emerald) */
+    --accent: #10b981;
+    --accent-strong: #059669;
+    --accent-glow: rgba(16, 185, 129, 0.25);
+    --accent-glow-strong: rgba(5, 150, 105, 0.35);
+    --accent-soft: rgba(16, 185, 129, 0.12);
     
     /* Game specific colors */
-    --line-x: #fde047; /* Electric Yellow for X */
-    --line-o: #22d3ee; /* Electric Cyan for O */
+    --line-x: #10b981; /* Emerald Green for X */
+    --line-o: #64748b; /* Slate Grey for O */
     
     /* UI Elements */
-    --border-subtle: rgba(217, 70, 239, 0.15);
-    --border-soft: rgba(217, 70, 239, 0.25);
-    --border-light: rgba(217, 70, 239, 0.45);
+    --border-subtle: rgba(0, 0, 0, 0.04);
+    --border-soft: rgba(0, 0, 0, 0.08);
+    --border-light: rgba(0, 0, 0, 0.15);
     
     /* Text */
-    --text-main: #fdf4ff;
-    --text-muted: #d8b4fe;
-    --text-inverse: #0b0914;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --text-inverse: #ffffff;
     
     /* Layout */
     --radius-lg: 20px;
-    --shadow-subtle: 0 10px 24px rgba(0, 0, 0, 0.5);
-    --shadow-soft: 0 16px 36px rgba(0, 0, 0, 0.65);
-    --shadow-strong: 0 18px 45px rgba(0, 0, 0, 0.8);
+    --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.03);
+    --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.06);
+    --shadow-strong: 0 16px 40px rgba(0, 0, 0, 0.08);
     
     /* Component specific backgrounds */
-    --page-bg-1: rgba(18, 14, 36, 0.98);
-    --page-bg-2: rgba(18, 14, 36, 0.94);
-    --panel-bg: rgba(25, 20, 51, 0.95);
-    --cell-bg: rgba(18, 14, 36, 0.95);
-    --cell-hover: rgba(25, 20, 51, 1);
+    --page-bg-1: #ffffff;
+    --page-bg-2: #fcfcfc;
+    --panel-bg: #f8faf9;
+    --cell-bg: #ffffff;
+    --cell-hover: #f0fdf4;
 }
 
 * {
@@ -48,8 +49,8 @@
 
 body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    /* Updated gradient to match the Violet theme */
-    background: radial-gradient(circle at top left, #4c1d95 0, var(--bg-color) 55%);
+    /* Updated gradient for a fresh light theme */
+    background: radial-gradient(circle at top left, #dcfce7 0, var(--bg-color) 55%);
     color: var(--text-main);
     min-height: 100vh;
 }
