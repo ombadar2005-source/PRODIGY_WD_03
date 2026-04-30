@@ -3,69 +3,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Oreo Play – Tic Tac Toe</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Tic-Tac-Toe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <main class="page">
-        <header class="header">
-            <h1>Oreo Play</h1>
-            <p>Simple tic tac toe you can play in the browser – no login, no setup.</p>
-        </header>
-
-        <section class="game-shell">
-            <div class="game-panel">
-                <div class="status-row">
-                    <span id="statusText" class="status-text">Player X starts</span>
-                    <span class="mode-pill" id="modePill">2 Players</span>
-                </div>
-
-                <div class="board" id="board">
-                    <button class="cell" data-index="0"></button>
-                    <button class="cell" data-index="1"></button>
-                    <button class="cell" data-index="2"></button>
-                    <button class="cell" data-index="3"></button>
-                    <button class="cell" data-index="4"></button>
-                    <button class="cell" data-index="5"></button>
-                    <button class="cell" data-index="6"></button>
-                    <button class="cell" data-index="7"></button>
-                    <button class="cell" data-index="8"></button>
-                </div>
-
-                <div class="controls">
-                    <button id="restartBtn" class="btn primary">Restart game</button>
-                    <button id="modeBtn" class="btn outline">Play vs Oreo</button>
-                </div>
-            </div>
-
-            <aside class="side-panel">
-                <div class="score-card">
-                    <h2>Score</h2>
-                    <div class="score-row">
-                        <span>X</span>
-                        <span id="scoreX">0</span>
-                    </div>
-                    <div class="score-row">
-                        <span>O</span>
-                        <span id="scoreO">0</span>
-                    </div>
-                    <div class="score-row">
-                        <span>Draw</span>
-                        <span id="scoreDraw">0</span>
-                    </div>
-                </div>
-                <p class="note">
-                    Tip: in vs Oreo mode, the computer plays as O and chooses a safe move, but still leaves room for you to win.
-                </p>
-            </aside>
-        </section>
-
-        <footer class="footer">
-            <p>Oreo Play is a tic tac toe web application built with HTML, CSS and JavaScript.</p>
-        </footer>
-    </main>
-
+    <div class="background"></div>
+    <div class="container">
+        <h1 class="title">Tic Tac Toe</h1>
+        <div id="status">Player X's Turn</div>
+        
+        <div class="game--container">
+            <div data-cell-index="0" class="cell"></div>
+            <div data-cell-index="1" class="cell"></div>
+            <div data-cell-index="2" class="cell"></div>
+            <div data-cell-index="3" class="cell"></div>
+            <div data-cell-index="4" class="cell"></div>
+            <div data-cell-index="5" class="cell"></div>
+            <div data-cell-index="6" class="cell"></div>
+            <div data-cell-index="7" class="cell"></div>
+            <div data-cell-index="8" class="cell"></div>
+        </div>
+        
+        <button id="restartBtn">Restart Game</button>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
