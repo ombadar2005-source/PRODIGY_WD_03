@@ -1,178 +1,107 @@
 // script.js
-const boardElement = document.getElementById('board');
+const statusDisplay = document.querySelector('#status');
 const cells = document.querySelectorAll('.cell');
-const statusText = document.getElementById('statusText');
-const modeBtn = document.getElementById('modeBtn');
-const modePill = document.getElementById('modePill');
-const restartBtn = document.getElementById('restartBtn');
+const restartBtn = document.querySelector('#restartBtn');
 
-const scoreXEl = document.getElementById('scoreX');
-const scoreOEl = document.getElementById('scoreO');
-const scoreDrawEl = document.getElementById('scoreDraw');
+let gameActive = true;
+let currentPlayer = "X";
+let gameState = ["", "", "", "", "", "", "", "", ""];
 
-let board = ['', '', '', '', '', '', '', '', ''];
-let currentPlayer = 'X';
-let isGameActive = true;
-let vsAi = false;
-
-let scoreX = 0;
-let scoreO = 0;
-let scoreDraw = 0;
-
-const winningPatterns = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
+const winningConditions = [
+    [0, 1, 2], [3, 4, 5], [6, 7, 8],
+    [0, 3, 6], [1, 4, 7], [2, 5, 8],
+    [0, 4, 8], [2, 4, 6]
 ];
 
-function handleCellClick(e) {
-    const cell = e.target;
-    const index = parseInt(cell.getAttribute('data-index'), 10);
+const winningMessage = () => `🎉 Player ${currentPlayer} Wins! 🎉`;
+const drawMessage = () => `It's a Draw! 🤝`;
+const currentPlayerTurn = () => `Player ${currentPlayer}'s Turn`;
 
-    if (!isGameActive || board[index] !== '') return;
+statusDisplay.innerHTML = currentPlayerTurn();
 
-    placeMarker(index, currentPlayer);
-    const result = checkGameStatus();
-
-    if (!result.gameOver && vsAi && currentPlayer === 'O') {
-        setTimeout(aiMove, 220);
-    }
+function handleCellPlayed(clickedCell, clickedCellIndex) {
+    gameState[clickedCellIndex] = currentPlayer;
+    clickedCell.innerHTML = currentPlayer;
+    
+    // Add specific class for color (x or o) and animation (placed)
+    clickedCell.classList.add(currentPlayer.toLowerCase()); 
+    clickedCell.classList.add('placed');
 }
 
-function placeMarker(index, player) {
-    board[index] = player;
-    const cell = cells[index];
-    cell.textContent = player;
-    cell.classList.add(player.toLowerCase());
+function handlePlayerChange() {
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
+    statusDisplay.innerHTML = currentPlayerTurn();
 }
 
-function checkGameStatus() {
-    let winner = null;
-    let winningLine = null;
+function handleResultValidation() {
+    let roundWon = false;
+    let winningCombo = []; // To store which cells won
 
-    for (const pattern of winningPatterns) {
-        const [a, b, c] = pattern;
-        if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-            winner = board[a];
-            winningLine = pattern;
+    for (let i = 0; i <= 7; i++) {
+        const winCondition = winningConditions[i];
+        let a = gameState[winCondition[0]];
+        let b = gameState[winCondition[1]];
+        let c = gameState[winCondition[2]];
+
+        if (a === '' || b === '' || c === '') {
+            continue;
+        }
+        if (a === b && b === c) {
+            roundWon = true;
+            winningCombo = winCondition; // Save the winning indices
             break;
         }
     }
 
-    if (winner) {
-        isGameActive = false;
-        highlightWin(winningLine);
-        updateScore(winner);
-        statusText.textContent = `Player ${winner} wins`;
-        return { gameOver: true, winner };
+    if (roundWon) {
+        statusDisplay.innerHTML = winningMessage();
+        gameActive = false;
+        highlightWinningCells(winningCombo); // Trigger the visual effect
+        return;
     }
 
-    if (!board.includes('')) {
-        isGameActive = false;
-        updateScore('draw');
-        statusText.textContent = 'Game ended in a draw';
-        return { gameOver: true, winner: null };
+    let roundDraw = !gameState.includes("");
+    if (roundDraw) {
+        statusDisplay.innerHTML = drawMessage();
+        gameActive = false;
+        return;
     }
 
-    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-    statusText.textContent = `Player ${currentPlayer}'s turn`;
-    return { gameOver: false, winner: null };
+    handlePlayerChange();
 }
 
-function highlightWin(pattern) {
-    pattern.forEach(i => cells[i].classList.add('win'));
-}
-
-function updateScore(result) {
-    if (result === 'X') {
-        scoreX += 1;
-        scoreXEl.textContent = scoreX;
-    } else if (result === 'O') {
-        scoreO += 1;
-        scoreOEl.textContent = scoreO;
-    } else {
-        scoreDraw += 1;
-        scoreDrawEl.textContent = scoreDraw;
-    }
-}
-
-function aiMove() {
-    if (!isGameActive) return;
-
-    const emptyIndices = board
-        .map((val, i) => (val === '' ? i : null))
-        .filter(i => i !== null);
-
-    if (emptyIndices.length === 0) return;
-
-    let move = findWinningMove('O');
-    if (move === null) {
-        move = findWinningMove('X');
-    }
-    if (move === null) {
-        const center = 4;
-        if (board[center] === '') {
-            move = center;
-        }
-    }
-    if (move === null) {
-        const corners = [0, 2, 6, 8].filter(i => board[i] === '');
-        if (corners.length > 0) {
-            move = corners[Math.floor(Math.random() * corners.length)];
-        }
-    }
-    if (move === null) {
-        move = emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
-    }
-
-    placeMarker(move, 'O');
-    checkGameStatus();
-}
-
-function findWinningMove(player) {
-    for (const pattern of winningPatterns) {
-        const [a, b, c] = pattern;
-        const values = [board[a], board[b], board[c]];
-        if (
-            values.filter(v => v === player).length === 2 &&
-            values.includes('')
-        ) {
-            const emptyIndex = [a, b, c][values.indexOf('')];
-            return emptyIndex;
-        }
-    }
-    return null;
-}
-
-function restartGame() {
-    board = ['', '', '', '', '', '', '', '', ''];
-    currentPlayer = 'X';
-    isGameActive = true;
-    statusText.textContent = 'Player X starts';
-
-    cells.forEach(cell => {
-        cell.textContent = '';
-        cell.classList.remove('x', 'o', 'win');
+// New function to apply the winning effect
+function highlightWinningCells(combo) {
+    combo.forEach(index => {
+        const cell = document.querySelector(`[data-cell-index='${index}']`);
+        cell.classList.add('win-animation');
     });
 }
 
-function toggleMode() {
-    vsAi = !vsAi;
-    restartGame();
-    if (vsAi) {
-        modeBtn.textContent = 'Play with friend';
-        modePill.textContent = 'Vs Kaalix';
-    } else {
-        modeBtn.textContent = 'Play vs Kaalix';
-        modePill.textContent = '2 Players';
+function handleCellClick(clickedCellEvent) {
+    const clickedCell = clickedCellEvent.target;
+    const clickedCellIndex = parseInt(clickedCell.getAttribute('data-cell-index'));
+
+    if (gameState[clickedCellIndex] !== "" || !gameActive) {
+        return;
     }
+
+    handleCellPlayed(clickedCell, clickedCellIndex);
+    handleResultValidation();
+}
+
+function handleRestartGame() {
+    gameActive = true;
+    currentPlayer = "X";
+    gameState = ["", "", "", "", "", "", "", "", ""];
+    statusDisplay.innerHTML = currentPlayerTurn();
+    
+    cells.forEach(cell => {
+        cell.innerHTML = "";
+        // Remove all classes except 'cell'
+        cell.className = "cell"; 
+    });
 }
 
 cells.forEach(cell => cell.addEventListener('click', handleCellClick));
-restartBtn.addEventListener('click', restartGame);
-modeBtn.addEventListener('click', toggleMode);
+restartBtn.addEventListener('click', handleRestartGame);
