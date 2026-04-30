@@ -12,7 +12,7 @@ body {
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    background: #1a1a2e; /* Fallback */
+    background: #0f3d20; /* Fallback */
 }
 
 /* Animated Gradient Background */
@@ -23,7 +23,7 @@ body {
     top: -50%;
     left: -50%;
     z-index: -1;
-    background: radial-gradient(circle, #ff00cc, #333399);
+    background: radial-gradient(circle, #2ed573, #0f3d20);
     background-size: 400% 400%;
     animation: gradientBG 15s ease infinite;
     opacity: 0.6;
@@ -89,18 +89,18 @@ body {
 
 /* Colors for X and O */
 .cell.x {
-    color: #00d2ff; /* Neon Blue */
-    text-shadow: 0 0 10px #00d2ff;
+    color: #ffffff; /* White */
+    text-shadow: 0 0 10px #ffffff;
 }
 
 .cell.o {
-    color: #ff00cc; /* Neon Pink */
-    text-shadow: 0 0 10px #ff00cc;
+    color: #2ed573; /* Neon Green */
+    text-shadow: 0 0 10px #2ed573;
 }
 
 /* Button Styling */
 #restartBtn {
-    background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+    background: linear-gradient(90deg, #2ed573, #1e9e4f);
     border: none;
     padding: 12px 25px;
     border-radius: 50px;
@@ -108,13 +108,13 @@ body {
     font-size: 1.2rem;
     font-family: 'Fredoka One', cursive;
     cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0, 210, 255, 0.4);
+    box-shadow: 0 5px 15px rgba(46, 213, 115, 0.4);
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
 #restartBtn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 210, 255, 0.6);
+    box-shadow: 0 8px 20px rgba(46, 213, 115, 0.6);
 }
 
 /* --- ANIMATIONS --- */
@@ -142,3 +142,4 @@ body {
     color: white !important;
     animation: winPulse 1.5s infinite;
 }
+
